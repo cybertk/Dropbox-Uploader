@@ -75,8 +75,12 @@ shopt -s nullglob #Bash allows filename patterns which match no files to expand 
 shopt -s dotglob  #Bash includes filenames beginning with a "." in the results of filename expansion
 
 #Look for optional config file parameter
-while getopts ":qpskdhf:" opt; do
+while getopts ":qpskdhf:c:" opt; do
     case $opt in
+
+    c)
+      CHUNK_SIZE=$OPTARG
+    ;;
 
     f)
       CONFIG_FILE=$OPTARG
@@ -264,6 +268,7 @@ function usage
     echo -e "\t-q            Quiet mode. Don't show messages"
     echo -e "\t-h            Show file sizes in human readable format"
     echo -e "\t-p            Show cURL progress meter"
+    echo -e "\t-c <SIZE>     Split up the file in chunks of this size (in Mb). Default: 4"
     echo -e "\t-k            Doesn't check for SSL certificates (insecure)"
 
     echo -en "\nFor more info and examples, please see the README file.\n\n"
